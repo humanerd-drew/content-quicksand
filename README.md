@@ -23,8 +23,8 @@ Scores every candidate across five axes:
 ### Real-Time Updates
 Triggers content graph rebuild when a new post is published — no waiting for the daily cron.
 
-### In-Content Links (Optional, via CGE)
-When paired with [Content Graph Engine](https://github.com/humanerd-drew/content-graph-engine), the plugin automatically adds contextual links within post content using TF-IDF keyword matching.
+### In-Content Links (Automatic)
+On publish, the plugin extracts keywords from the post title and inserts contextual links to existing posts. Pure PHP — no external services, no setup.
 
 ## Installation
 
