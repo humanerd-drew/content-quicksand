@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Content Quicksand — WordPress Plugin</title>
+<meta name="description" content="Series-aware related posts with in-content contextual links. No setup, no LLM, no Python.">
+<meta property="og:title" content="Content Quicksand">
+<meta property="og:description" content="WordPress plugin. Auto-detect series, show related posts, insert contextual links on publish.">
+<meta property="og:url" content="https://humanerd-drew.github.io/content-quicksand/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1c1c1a; line-height: 1.8; }
+.container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
+h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+.subtitle { font-size: 16px; color: #6b6b68; margin-bottom: 40px; }
+.features { display: grid; gap: 24px; margin-bottom: 40px; }
+.feature { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.feature h2 { font-size: 18px; margin-bottom: 8px; }
+.feature p { font-size: 14px; color: #5a5a56; }
+code { background: #f0efe8; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+.btn { display: inline-block; padding: 10px 24px; background: #8b7355; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; margin-right: 8px; }
+.btn:hover { background: #6b5a42; }
+.links { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
+.footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #e8e8e4; font-size: 13px; color: #8a8a86; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Content Quicksand</h1>
+  <p class="subtitle">Keep readers on your site.</p>
+
+  <div class="features">
+    <div class="feature">
+      <h2>Series Navigation</h2>
+      <p>Auto-detects <code>Ep.1</code>, <code>Part 2</code>, <code>에피소드 3</code> patterns. Renders prev/next with progress indicator.</p>
+    </div>
+    <div class="feature">
+      <h2>Related Posts</h2>
+      <p>Multi-dimensional scoring — series, category, recency, tags. Shows up to 6 cards at the bottom of every post.</p>
+    </div>
+    <div class="feature">
+      <h2>In-Content Links</h2>
+      <p>On publish, extracts keywords from the title and inserts contextual links to existing posts. No LLM, no Python, no cron.</p>
+    </div>
+    <div class="feature">
+      <h2>Zero Setup</h2>
+      <p>Activate the plugin and it works. Dashboard buttons, bulk actions, and WP-CLI for manual runs.</p>
+    </div>
+  </div>
+
+  <div class="links">
+    <a class="btn" href="https://github.com/humanerd-drew/content-quicksand">GitHub →</a>
+    <a class="btn" href="https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip">Download ZIP</a>
+  </div>
+
+  <div class="footer">
+    GPLv2 · Built at <a href="https://humanerd.kr">humanerd.kr</a>
+  </div>
+</div>
+</body>
+</html>
