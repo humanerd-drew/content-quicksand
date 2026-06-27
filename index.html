@@ -1,63 +1,357 @@
 <!DOCTYPE html>
-<html lang="ko-KR">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Content Quicksand — WordPress Plugin</title>
-<meta name="description" content="Series-aware related posts with in-content contextual links. No setup, no LLM, no Python.">
-<meta property="og:title" content="Content Quicksand">
-<meta property="og:description" content="WordPress plugin. Auto-detect series, show related posts, insert contextual links on publish.">
+<title>Content Quicksand — Keep Readers on Your WordPress Site</title>
+<meta name="description" content="Three reader-retention tools in one WordPress plugin. Series navigation, related posts, and in-content links. Zero setup. Free forever.">
+<link rel="canonical" href="https://humanerd-drew.github.io/content-quicksand/">
+<meta property="og:title" content="Content Quicksand — Three Retention Tools, One Plugin">
+<meta property="og:description" content="Keep readers on your site. Series nav + related posts + in-content links. Zero setup.">
+<meta property="og:image" content="https://humanerd-drew.github.io/content-quicksand/og.png">
 <meta property="og:url" content="https://humanerd-drew.github.io/content-quicksand/">
+<meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Content Quicksand",
+  "applicationCategory": "DesignApplication",
+  "operatingSystem": "WordPress",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "description": "Three reader-retention tools in one WordPress plugin. Series navigation, related posts, and in-content links. Zero setup required."
+}
+</script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fafaf8; color: #1c1c1a; line-height: 1.8; }
-.container { max-width: 720px; margin: 0 auto; padding: 60px 24px; }
-h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
-.subtitle { font-size: 16px; color: #6b6b68; margin-bottom: 40px; }
-.features { display: grid; gap: 24px; margin-bottom: 40px; }
-.feature { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.feature h2 { font-size: 18px; margin-bottom: 8px; }
-.feature p { font-size: 14px; color: #5a5a56; }
-code { background: #f0efe8; padding: 2px 6px; border-radius: 4px; font-size: 13px; }
-.btn { display: inline-block; padding: 10px 24px; background: #8b7355; color: #fff; border-radius: 8px; text-decoration: none; font-weight: 500; margin-right: 8px; }
-.btn:hover { background: #6b5a42; }
-.links { margin-top: 40px; display: flex; gap: 12px; flex-wrap: wrap; }
-.footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #e8e8e4; font-size: 13px; color: #8a8a86; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #1a1a18;
+  --bg-card: #22221f;
+  --bg-code: #2a2a26;
+  --text: #e8e4df;
+  --text-muted: #8a8a86;
+  --accent: #a08a6a;
+  --accent-hover: #b8a080;
+  --border: #33332e;
+  --radius: 12px;
+  --max-w: 800px;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); }
+.container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
+
+/* Sections */
+section { padding: 80px 0; }
+section + section { border-top: 1px solid var(--border); }
+
+/* Typography */
+h1 { font-size: clamp(28px, 4vw, 42px); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+h2 { font-size: clamp(22px, 3vw, 30px); font-weight: 600; line-height: 1.3; margin-bottom: 16px; }
+h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+p { font-size: 15px; color: var(--text-muted); }
+.subtitle { font-size: 17px; color: var(--text-muted); margin-top: 12px; max-width: 560px; }
+
+/* Buttons */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 500; transition: background 0.2s, transform 0.1s; cursor: pointer; }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--accent); color: #fff; border: none; }
+.btn-primary:hover { background: var(--accent-hover); color: #fff; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { border-color: var(--text-muted); color: var(--text); }
+.micro-copy { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+/* Hero */
+.hero { text-align: center; padding: 100px 0 80px; }
+.hero-tag { display: inline-block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); border: 1px solid var(--accent); padding: 4px 12px; border-radius: 20px; margin-bottom: 24px; font-weight: 500; }
+.hero-pitch { font-size: 15px; color: var(--text-muted); margin-top: 16px; }
+.hero-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.hero-badge { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 28px; font-size: 13px; color: var(--text-muted); }
+.hero-badge span { display: flex; align-items: center; gap: 4px; }
+
+/* Problem */
+.problem-stat { font-size: 42px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+.problem-block { margin-top: 32px; display: grid; gap: 20px; }
+.problem-item { background: var(--bg-card); border-radius: var(--radius); padding: 20px 24px; border-left: 3px solid var(--border); }
+.problem-item.highlight { border-left-color: var(--accent); }
+.problem-item p { font-size: 14px; margin-top: 4px; }
+
+/* How It Works */
+.demo-mockup { background: var(--bg-card); border-radius: var(--radius); padding: 32px; border: 1px solid var(--border); margin-top: 24px; }
+.demo-zone { margin-bottom: 20px; }
+.demo-zone:last-child { margin-bottom: 0; }
+.demo-zone-header { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
+.demo-zone-tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; }
+.zone-1 .demo-zone-tag { background: #2d4a3e; color: #6fcf97; }
+.zone-2 .demo-zone-tag { background: #3d3656; color: #bb86fc; }
+.zone-3 .demo-zone-tag { background: #4a3520; color: #f2a65a; }
+.demo-zone-bar { height: 12px; border-radius: 6px; margin-top: 6px; }
+.zone-1 .demo-zone-bar { background: linear-gradient(90deg, #2d4a3e 0%, #6fcf97 100%); width: 65%; }
+.zone-2 .demo-zone-bar { background: linear-gradient(90deg, #3d3656 0%, #bb86fc 100%); width: 85%; }
+.zone-3 .demo-zone-bar { background: linear-gradient(90deg, #4a3520 0%, #f2a65a 100%); width: 100%; }
+.demo-zone-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+.demo-meta { margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); text-align: center; }
+
+/* Features Grid */
+.features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; margin-top: 24px; }
+.feature-card { background: var(--bg-card); border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); transition: border-color 0.2s; }
+.feature-card:hover { border-color: var(--accent); }
+.feature-card .icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.feature-card .icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; }
+.feature-card .body { font-size: 14px; color: var(--text-muted); margin-top: 8px; }
+.feature-card .benefit-tag { display: inline-block; margin-top: 12px; font-size: 12px; font-weight: 500; color: var(--accent); }
+
+/* CTA section */
+.cta-section { text-align: center; }
+.cta-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.code-block { background: var(--bg-code); border: 1px solid var(--border); border-radius: 8px; padding: 14px 20px; font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace; font-size: 14px; color: #c8c4bf; margin: 16px auto 0; max-width: 520px; text-align: left; overflow-x: auto; }
+.code-block .prompt { color: var(--text-muted); }
+.code-block .cmd { color: #6fcf97; }
+.code-label { font-size: 13px; color: var(--text-muted); margin-top: 24px; }
+
+/* Credibility bar */
+.cred-bar { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+.cred-item { background: var(--bg-card); border-radius: var(--radius); padding: 20px; text-align: center; border: 1px solid var(--border); }
+.cred-item .icon { font-size: 24px; margin-bottom: 8px; }
+.cred-item .label { font-size: 13px; font-weight: 500; color: var(--text); }
+.cred-item .desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* Footer */
+footer { padding: 40px 0; text-align: center; font-size: 13px; color: var(--text-muted); }
+footer a { color: var(--text-muted); }
+footer a:hover { color: var(--accent); }
+footer .links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 12px; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Content Quicksand</h1>
-  <p class="subtitle">Keep readers on your site.</p>
 
-  <div class="features">
-    <div class="feature">
-      <h2>Series Navigation</h2>
-      <p>Auto-detects <code>Ep.1</code>, <code>Part 2</code>, <code>에피소드 3</code> patterns. Renders prev/next with progress indicator.</p>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="container">
+    <div class="hero-tag">WordPress Plugin</div>
+    <h1>Three reader-retention tools in one plugin.<br>Activate, and it works.</h1>
+    <p class="subtitle" style="margin:16px auto 0">Keep readers on your site.</p>
+    <p class="hero-pitch">Series navigation · Related posts · In-content links. No setup. No LLMs.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip">Install Free →</a>
+      <a class="btn btn-secondary" href="#how-it-works">See how it works ↓</a>
     </div>
-    <div class="feature">
-      <h2>Related Posts</h2>
-      <p>Multi-dimensional scoring — series, category, recency, tags. Shows up to 6 cards at the bottom of every post.</p>
-    </div>
-    <div class="feature">
-      <h2>In-Content Links</h2>
-      <p>On publish, extracts keywords from the title and inserts contextual links to existing posts. No LLM, no Python, no cron.</p>
-    </div>
-    <div class="feature">
-      <h2>Zero Setup</h2>
-      <p>Activate the plugin and it works. Dashboard buttons, bulk actions, and WP-CLI for manual runs.</p>
+    <div class="hero-badge">
+      <span>✓ Pure PHP</span>
+      <span>✓ No API keys</span>
+      <span>✓ No configuration</span>
     </div>
   </div>
+</section>
 
-  <div class="links">
-    <a class="btn" href="https://github.com/humanerd-drew/content-quicksand">GitHub →</a>
-    <a class="btn" href="https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip">Download ZIP</a>
-  </div>
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="container">
+    <h2>The Leaky Bucket</h2>
+    <p style="font-size:17px; max-width:600px">A reader finds your post. Reads it. Closes the tab. Sound familiar?</p>
 
-  <div class="footer">
-    GPLv2 · Built at <a href="https://humanerd.kr">humanerd.kr</a>
+    <div class="problem-block">
+      <div>
+        <div class="problem-stat">70–85%</div>
+        <p>of first-time visitors never return to a typical WordPress site. Your content is good — but your site has no mechanism to keep readers moving.</p>
+      </div>
+      <div class="problem-item highlight">
+        <h3>The real problem isn't your content.</h3>
+        <p>It's that your site is missing three things: a way to show readers where they are in a series, links that pull them deeper mid-post, and a grid of next reads when they finish. Most plugins solve one of these. You need all three, working together, with zero setup.</p>
+      </div>
+      <div class="problem-item">
+        <h3>Bloated suites are overkill.</h3>
+        <p>Jetpack and friends bundle 50+ modules when you just want readers to find the next post. Single-feature plugins leave gaps — your series nav works but there's no related posts grid.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="container">
+    <h2>Three zones. One post. Zero configuration.</h2>
+    <p>All three retention layers activate automatically on every post. No shortcodes. No widgets. No settings.</p>
+
+    <div class="demo-mockup">
+      <!-- Zone 1: Series Nav -->
+      <div class="demo-zone zone-1">
+        <div class="demo-zone-header">
+          <span class="demo-zone-tag">Zone 1</span>
+          <span>Series Navigation</span>
+        </div>
+        <p class="demo-zone-label">Readers see where they are and jump to the next (or previous) part.</p>
+        <div class="demo-zone-bar"></div>
+        <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:12px; color:var(--text-muted)">
+          <span>← Part 2</span>
+          <span style="color:var(--accent); font-weight:500">Part 3 of 7</span>
+          <span>Part 4 →</span>
+        </div>
+      </div>
+
+      <!-- Post content divider -->
+      <div style="height:1px; background:var(--border); margin:20px 0"></div>
+      <div style="font-size:13px; color:var(--text-muted); line-height:1.8; padding:0 4px">
+        <p>Post content continues here... The reader is engaged, scrolling through your article.</p>
+      </div>
+
+      <!-- Zone 2: In-Content Link -->
+      <div class="demo-zone zone-2" style="margin-top:20px">
+        <div class="demo-zone-header">
+          <span class="demo-zone-tag">Zone 2</span>
+          <span>In-Content Link</span>
+        </div>
+        <p class="demo-zone-label">Contextual link appears mid-post, pulling readers deeper into your archive.</p>
+        <div style="background:var(--bg-code); border-radius:6px; padding:10px 14px; margin-top:6px; font-size:13px; border-left:3px solid #bb86fc">
+          <span style="color:var(--text-muted)">Read also: </span><a href="#" onclick="return false">How to structure a content series that keeps readers coming back</a>
+        </div>
+        <div class="demo-zone-bar"></div>
+      </div>
+
+      <div style="height:1px; background:var(--border); margin:20px 0"></div>
+
+      <!-- Zone 3: Related Posts Grid -->
+      <div class="demo-zone zone-3">
+        <div class="demo-zone-header">
+          <span class="demo-zone-tag">Zone 3</span>
+          <span>Related Posts Grid</span>
+        </div>
+        <p class="demo-zone-label">Visual grid at the bottom catches readers before they leave.</p>
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:8px">
+          <div style="background:var(--bg); border-radius:6px; padding:16px 12px; text-align:center">
+            <div style="width:100%; height:40px; background:var(--bg-code); border-radius:4px; margin-bottom:6px"></div>
+            <div style="font-size:12px; color:var(--text-muted)">Related Post 1</div>
+          </div>
+          <div style="background:var(--bg); border-radius:6px; padding:16px 12px; text-align:center">
+            <div style="width:100%; height:40px; background:var(--bg-code); border-radius:4px; margin-bottom:6px"></div>
+            <div style="font-size:12px; color:var(--text-muted)">Related Post 2</div>
+          </div>
+          <div style="background:var(--bg); border-radius:6px; padding:16px 12px; text-align:center">
+            <div style="width:100%; height:40px; background:var(--bg-code); border-radius:4px; margin-bottom:6px"></div>
+            <div style="font-size:12px; color:var(--text-muted)">Related Post 3</div>
+          </div>
+        </div>
+        <div class="demo-zone-bar"></div>
+      </div>
+
+      <div class="demo-meta">All three activate automatically. No shortcodes. No widgets. No settings pages.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="container">
+    <h2>Everything you need to keep readers on your site</h2>
+    <p>Four features. One plugin. Zero setup.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="icon" style="background:#2d4a3e">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 6v7"/><path d="M9 9l3-3 3 3"/></svg>
+        </div>
+        <h3>Series Navigation</h3>
+        <p class="body">Automatically detects post series (Ep.1, Part 2, 에피소드 3) and renders a progress bar with prev/next links. Readers always know where they are.</p>
+        <span class="benefit-tag">Keeps series readers moving forward</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon" style="background:#3d3656">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </div>
+        <h3>Related Posts Grid</h3>
+        <p class="body">A responsive grid appears below every post with thumbnails and titles of related content. Taxonomy-matched, not random. Up to 6 cards.</p>
+        <span class="benefit-tag">Catches readers before they bounce</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon" style="background:#4a3520">
+          <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <h3>In-Content Links</h3>
+        <p class="body">Contextual links injected mid-post based on shared categories or tags. Subtle, not intrusive. Styled to match your theme. No LLM, no Python.</p>
+        <span class="benefit-tag">Pulls readers deeper into your archive</span>
+      </div>
+
+      <div class="feature-card">
+        <div class="icon" style="background:#2a3a4e">
+          <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <h3>Zero Setup</h3>
+        <p class="body">No settings page. No API keys. No cron jobs. Activate the plugin and all three features work immediately. Pure PHP, no external dependencies.</p>
+        <span class="benefit-tag">Install, activate, done</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="install">
+  <div class="container">
+    <h2>Install in 10 seconds</h2>
+    <p>Free. GPLv2. No account required.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip">Install Free →</a>
+      <a class="btn btn-secondary" href="https://github.com/humanerd-drew/content-quicksand">View source on GitHub →</a>
+    </div>
+    <div class="code-label">Prefer the terminal?</div>
+    <div class="code-block">
+      <span class="prompt">$ </span><span class="cmd">wp plugin install https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip --activate</span>
+    </div>
+    <div class="micro-copy">Read the code. Fork it. Contribute.</div>
+  </div>
+</section>
+
+<!-- CREDIBILITY -->
+<section>
+  <div class="container">
+    <h2 style="text-align:center; margin-bottom:24px">Built for production, shared with the community</h2>
+    <div class="cred-bar">
+      <div class="cred-item">
+        <div class="icon">🟢</div>
+        <div class="label">Running in production</div>
+        <div class="desc">on humanerd.kr since June 2026</div>
+      </div>
+      <div class="cred-item">
+        <div class="icon">⚡</div>
+        <div class="label">Pure PHP</div>
+        <div class="desc">No Python, Node.js, or external APIs</div>
+      </div>
+      <div class="cred-item">
+        <div class="icon">📜</div>
+        <div class="label">GPLv2</div>
+        <div class="desc">Free forever. No premium tier.</div>
+      </div>
+      <div class="cred-item">
+        <div class="icon">🔧</div>
+        <div class="label">WordPress Native</div>
+        <div class="desc">Works with any theme. No shortcodes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="links">
+      <a href="https://github.com/humanerd-drew/content-quicksand">GitHub</a>
+      <a href="https://github.com/humanerd-drew/content-quicksand/blob/main/CHANGELOG.md">Changelog</a>
+      <a href="https://github.com/humanerd-drew/content-quicksand/issues">Support</a>
+      <a href="https://humanerd.kr">humanerd.kr</a>
+    </div>
+    <p>Content Quicksand is free software under GPLv2. Made for <a href="https://humanerd.kr">humanerd.kr</a>, shared with the community.</p>
+    <p style="margin-top:4px">© 2026 humanerd. Not affiliated with WordPress.org.</p>
+  </div>
+</footer>
+
 </body>
 </html>
