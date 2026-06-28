@@ -145,14 +145,14 @@ section:nth-child(6) { animation-delay: 0.5s; }
   <div class="container">
     <div class="hero-tag">WordPress Plugin</div>
     <h1>Three reader-retention tools in one plugin.<br>Activate, and it works.</h1>
-    <p class="hero-pitch" style="max-width:480px; margin:16px auto 0">Series navigation · Related posts · In-content links. All in pure PHP. No API keys, no configuration.</p>
+    <p class="hero-pitch" style="max-width:480px; margin:16px auto 0">Series navigation · Related posts · In-content links. Pure PHP, no external APIs.</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="https://github.com/humanerd-drew/content-quicksand/archive/refs/heads/main.zip">Download Plugin →</a>
       <a class="btn btn-secondary" href="#how-it-works">See it in action ↓</a>
     </div>
     <div class="hero-badge">
-      <span>✓ Runs on new posts automatically</span>
-      <span>✓ Bulk update with admin UI or WP-CLI</span>
+      <span>✓ Links new + existing posts</span>
+      <span>✓ Admin UI or WP-CLI</span>
       <span>✓ Works with any theme</span>
     </div>
   </div>
@@ -192,10 +192,18 @@ section:nth-child(6) { animation-delay: 0.5s; }
       <div class="demo-zone">
         <div class="demo-zone-label">
           <span class="tag green">Series Navigation</span>
-          <span>auto-detects Ep.1, Part 2 patterns — rendered at the bottom of every series post</span>
+          <span>auto-detects Ep.1, Part 2 patterns — rendered on every series post</span>
         </div>
         <img src="cq-zone1-nav.png" alt="Content Quicksand series navigation bar showing prev/next links and progress indicator for the Drewgent Origin Story series on humanerd.kr">
-        <div class="demo-zone-desc">Readers see prev/next links with a series title. Works with <code>Ep.1</code>, <code>Part 2</code>, <code>에피소드 3</code> patterns.</div>
+        <div class="demo-zone-desc">Readers see where they are and jump to the next (or previous) part. Works with <code>Ep.1</code>, <code>Part 2</code>, <code>에피소드 3</code> patterns.</div>
+      </div>
+      <div class="demo-zone">
+        <div class="demo-zone-label">
+          <span class="tag purple">In-Content Links</span>
+          <span>contextual inline links injected based on keyword matching</span>
+        </div>
+        <img src="cq-zone2-link.png" alt="Content Quicksand in-content link inline within a paragraph on humanerd.kr showing a contextual link styled to match the theme">
+        <div class="demo-zone-desc">TF-IDF + keyword matching + taxonomy scoring. Links appear inline in the post body. No LLM needed.</div>
       </div>
       <div class="demo-zone">
         <div class="demo-zone-label">
@@ -208,7 +216,7 @@ section:nth-child(6) { animation-delay: 0.5s; }
     </div>
 
     <div class="demo-live">
-      <a class="btn btn-outline" href="https://humanerd.kr/category/ai-tools/" target="_blank">See it live on humanerd.kr →</a>
+      <a class="btn btn-outline" href="https://humanerd.kr/build-log/15-agent-profiles-design/" target="_blank">See it live on humanerd.kr →</a>
     </div>
   </div>
 </section>
