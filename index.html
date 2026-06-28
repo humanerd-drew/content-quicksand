@@ -81,14 +81,19 @@ p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
 .problem-num { font-size: 14px; font-weight: 600; color: var(--accent); background: var(--bg-card); border: 1px solid var(--border); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
 .problem-item p { font-size: 14px; }
 
-/* Demo Screenshot */
-.demo-img { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); margin-top: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
-.demo-caption { text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-muted); }
-.demo-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
-.demo-highlight { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; }
-.demo-highlight .num { font-size: 20px; font-weight: 700; color: var(--accent); }
-.demo-highlight .label { font-size: 13px; font-weight: 500; margin-top: 4px; }
-.demo-highlight .desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+/* Demo zones */
+.demo-zones { margin-top: 24px; }
+.demo-zone { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 0; }
+.demo-zone + .demo-zone { border-top: none; border-radius: 0; }
+.demo-zone:last-child { border-radius: 0 0 var(--radius) var(--radius); margin-bottom: 16px; }
+.demo-zone:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+.demo-zone img { display: block; width: 100%; height: auto; }
+.demo-zone-label { display: flex; align-items: center; gap: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; color: var(--text); border-bottom: 1px solid var(--border); }
+.demo-zone-label .tag { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 4px; }
+.demo-zone-label .tag.green { background: #e1f0e8; color: #2d6a4f; }
+.demo-zone-label .tag.purple { background: #e8e1f0; color: #5a3d8a; }
+.demo-zone-label .tag.orange { background: #f0e8de; color: #8a5a2d; }
+.demo-zone-desc { padding: 12px 16px; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border); }
 .demo-live { text-align: center; margin-top: 24px; }
 
 /* CTA section */
@@ -128,7 +133,6 @@ section:nth-child(6) { animation-delay: 0.5s; }
 @media (max-width: 640px) {
   section { padding: 48px 0; }
   .hero { padding: 64px 0 48px; }
-  .demo-highlights { grid-template-columns: 1fr; }
   .problem-grid { grid-template-columns: 1fr; }
   .cred-bar { grid-template-columns: repeat(2, 1fr); }
 }
@@ -184,23 +188,14 @@ section:nth-child(6) { animation-delay: 0.5s; }
     <h2>Three zones. One post. Zero configuration.</h2>
     <p>All three retention layers activate automatically on every new post. For existing content, use the admin dashboard or WP-CLI to generate links in bulk.</p>
 
-    <img class="demo-img" src="cq-full-post.png" alt="Content Quicksand screenshot showing series navigation bar at top, in-content link mid-post, and related posts grid at bottom of a WordPress blog post on humanerd.kr">
-
-    <div class="demo-highlights">
-      <div class="demo-highlight">
-        <div class="num">01</div>
-        <div class="label">Series Navigation</div>
-        <div class="desc">Auto-detects Ep.1, Part 2, 에피소드 3 patterns. Renders prev/next with a progress indicator.</div>
-      </div>
-      <div class="demo-highlight">
-        <div class="num">02</div>
-        <div class="label">In-Content Links</div>
-        <div class="desc">Contextual links injected mid-post using TF-IDF + keyword matching + taxonomy scoring. No LLM needed.</div>
-      </div>
-      <div class="demo-highlight">
-        <div class="num">03</div>
-        <div class="label">Related Posts Grid</div>
-        <div class="desc">Multi-dimensional scoring — series, category, recency, tags. Up to 6 taxonomy-matched cards.</div>
+    <div class="demo-zones">
+      <div class="demo-zone">
+        <div class="demo-zone-label">
+          <span class="tag orange">Related Posts Grid</span>
+          <span>on humanerd.kr — 6 taxonomy-matched cards at the bottom of every post</span>
+        </div>
+        <img src="cq-zone3-grid.png" alt="Content Quicksand related posts grid at the bottom of a WordPress blog post on humanerd.kr showing 6 taxonomy-matched article cards with titles, categories, and dates">
+        <div class="demo-zone-desc">Multi-dimensional scoring — series, category, recency, and tags. Up to 6 cards per post. All in pure PHP, no external APIs.</div>
       </div>
     </div>
 
